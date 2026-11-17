@@ -27,14 +27,14 @@
   # wpa_supplicant in a sandbox (user wpa_supplicant, no /home), so it can't
   # read the key the script puts in ~/.joinnow. Copy it to /etc and repoint:
   #   set conn "eduroam"   # nmcli -f NAME,TYPE connection show
+  #   set crt (nmcli -g 802-1x.client-cert connection show "$conn")
   #   set key (nmcli -g 802-1x.private-key connection show "$conn")
   #   set pw  (sudo nmcli -s -g 802-1x.private-key-password connection show "$conn")
   #   sudo install -d -m 750 -o root -g wpa_supplicant /etc/eduroam
+  #   sudo install -m 640 -o root -g wpa_supplicant $crt /etc/eduroam/
   #   sudo install -m 640 -o root -g wpa_supplicant $key /etc/eduroam/
-  #   sudo nmcli connection modify "$conn" \
-  #     802-1x.client-cert /etc/eduroam/(basename $key) \
-  #     802-1x.private-key /etc/eduroam/(basename $key) \
-  #     802-1x.private-key-password "$pw"
+  #   sudo nmcli connection modify "$conn" 802-1x.client-cert /etc/eduroam/(basename $crt) 802-1x.private-key-password "$pw"
+  #   sudo nmcli connection modify "$conn" 802-1x.private-key /etc/eduroam/(basename $key) 802-1x.private-key-password "$pw"
   #   rm -rf ~/.joinnow
   # Repeat after each renewal (running the script again resets the paths).
   services.envfs.enable = true;
