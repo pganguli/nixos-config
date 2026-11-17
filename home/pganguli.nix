@@ -255,6 +255,11 @@
     };
   };
 
+  # MATLAB (nix-matlab): where the MathWorks installer puts MATLAB
+  xdg.configFile."matlab/nix.sh".text = ''
+    INSTALL_DIR=$HOME/.local/opt/matlab
+  '';
+
   home.file.".julia/config/startup.jl".text = ''
     using Pkg
 

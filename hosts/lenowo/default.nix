@@ -15,6 +15,7 @@
     ../../modules/swap.nix
     ../../modules/power.nix
     ../../modules/home.nix
+    ../../modules/matlab.nix
   ];
 
   # Boot

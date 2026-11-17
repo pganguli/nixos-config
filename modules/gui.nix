@@ -9,6 +9,9 @@
     package = pkgs.wireshark;   # GUI version
   };
 
+  # Zoom, with screen sharing through the Plasma portal
+  programs.zoom-us.enable = true;
+
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
 
@@ -19,6 +22,9 @@
     inkscape dia veusz xournalpp
     qbittorrent guvcview gparted
     kdePackages.konversation   # IRC
+    signal-desktop
+    vesktop   # Discord client
+    spotify
     texliveMedium   # smaller than texliveFull
     libreoffice-qt6-fresh
   ];
