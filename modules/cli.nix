@@ -3,8 +3,11 @@
 
   environment.systemPackages = with pkgs; [
     # Basics
-    git vifm rsync rclone calc wget unzip
+    git vifm rsync rclone calc wget
     wl-clipboard   # Wayland clipboard (Neovim needs it)
+
+    # Archives
+    zip unzip _7zz   # _7zz is 7-Zip (7z, rar, and more)
 
     # Search and files
     ripgrep fd fclones   # fzf comes from Home Manager
@@ -16,5 +19,6 @@
 
     # Hardware, network and binaries
     pciutils nmap upx
+    ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
   ];
 }

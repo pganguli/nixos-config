@@ -13,6 +13,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Lets downloaded binaries run (juliaup, uv Python, rustup tools, VSCodium extensions)
+  # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
 }

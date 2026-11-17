@@ -13,7 +13,8 @@
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vscodium   # Alacritty comes from Home Manager
+    zed-editor   # the command is "zeditor"; Alacritty comes from Home Manager
+    thunderbird
     zathura feh mpv
     inkscape dia veusz xournalpp
     qbittorrent guvcview gparted

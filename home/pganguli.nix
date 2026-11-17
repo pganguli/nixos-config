@@ -213,7 +213,7 @@
     set incremental-search
     set selection-clipboard "clipboard"
     set synctex true
-    set synctex-editor-command "codium --goto %{input}:%{line}"
+    set synctex-editor-command "zeditor %{input}:%{line}"
   '';
 
   xdg.configFile."gdb/gdbinit".text = ''

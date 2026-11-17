@@ -8,6 +8,9 @@
 
   programs.java.enable = true;   # also sets JAVA_HOME
 
+  # rust-analyzer needs the source of the Rust standard library
+  environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+
   environment.systemPackages = with pkgs; [
     # C and C++
     (lib.hiPrio gcc) clang   # gcc owns the "cc" command
@@ -16,8 +19,8 @@
     # Python
     python3 uv ruff ty pipx
 
-    # Rust (toolchains and rust-analyzer come from rustup)
-    rustup
+    # Rust stable (Nix manages the version)
+    rustc cargo rustfmt clippy rust-analyzer
 
     # Go
     go
@@ -25,10 +28,13 @@
     # Julia (Nix manages the version)
     julia-bin
 
+    # Static site generator
+    hugo
+
     # Neovim: tree-sitter CLI (builds the parsers)
     tree-sitter
 
-    # Language servers (the list in home/files/nvim/plugin/40_lsp.lua)
+    # Language servers (the list in home/files/nvim/plugin/40_lsp.lua; rust-analyzer is above)
     clang-tools                    # clangd
     gopls
     basedpyright
