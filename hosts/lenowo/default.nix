@@ -29,6 +29,12 @@
   networking.hostName = "lenowo";
   networking.networkmanager.enable = true;
 
+  # Fixed regulatory domain: otherwise cfg80211 flips between WORLD and the
+  # AP's country IE, and 6 GHz association (blocked under WORLD) fails with
+  # "Association request to the driver failed" + rtw89 "failed to wait RF IQK".
+  hardware.wirelessRegulatoryDatabase = true;
+  boot.extraModprobeConfig = "options cfg80211 ieee80211_regdom=US";
+
   # Do not change
   system.stateVersion = "26.05";
 }
