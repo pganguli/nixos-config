@@ -14,13 +14,14 @@
     ../../modules/storage.nix
     ../../modules/swap.nix
     ../../modules/power.nix
+    ../../modules/home.nix
   ];
 
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages;   # LTS kernel; the NVIDIA driver supports it
 
   # Network
   networking.hostName = "lenowo";
