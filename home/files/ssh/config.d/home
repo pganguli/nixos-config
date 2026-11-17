@@ -4,25 +4,3 @@ Host dynalink
   PreferredAuthentications=publickey
   IdentityFile=~/.ssh/ssh_ed25519
   Compression=no
-
-Host thinkfox
-  HostName=thinkfox.home.arpa
-  User=pgan
-  PreferredAuthentications=publickey
-  IdentityFile=~/.ssh/ssh_ed25519
-  Compression=no
-
-Host akita
-  HostName=akita.home.arpa
-  Port=8022
-  User=u0_a335
-  PreferredAuthentications=publickey
-  IdentityFile=~/.ssh/ssh_ed25519
-  Compression=no
-
-Host foxwork
-  HostName=foxwork.home.arpa
-  User=pgan
-  PreferredAuthentications=publickey
-  IdentityFile=~/.ssh/ssh_ed25519
-  Compression=no
