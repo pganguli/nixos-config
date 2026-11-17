@@ -47,7 +47,10 @@ endif
 
 " Use fish for :shell and the "s" mapping below, since $SHELL is bash
 " (fish isn't the login shell) and vifm would otherwise default to it.
-set shell=fish
+" Must be an absolute path: vifm execve()s it directly, without a PATH lookup.
+set shell=/run/current-system/sw/bin/fish
+" :shell runs "<shell> -c $SHELL", so $SHELL must point at fish too.
+let $SHELL = '/run/current-system/sw/bin/fish'
 
 " This makes vifm perform file operations on its own instead of relying on
 " standard utilities like `cp`.  While using `cp` and alike is a more universal
