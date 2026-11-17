@@ -17,7 +17,11 @@
     gnumake cmake gdb valgrind
 
     # Python
-    python3 uv ruff ty pipx
+    (python3.withPackages (ps: with ps; [
+      dbus-python   # "import dbus"
+      pygobject3    # "from gi.repository import GLib" (main loop for D-Bus signals)
+    ]))
+    uv ruff ty pipx
 
     # Rust stable (Nix manages the version)
     rustc cargo rustfmt clippy rust-analyzer
