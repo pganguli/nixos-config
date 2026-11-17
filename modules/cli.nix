@@ -23,5 +23,6 @@
     wpa_supplicant   # wpa_cli, wpa_passphrase; NetworkManager has its own copy
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
+    e2fsprogs   # chattr, lsattr (file flags such as immutable)
   ];
 }
