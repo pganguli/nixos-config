@@ -15,4 +15,8 @@
 
   # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
+
+  # Lets scripts find programs at fixed paths such as /usr/bin/openssl or /bin/bash.
+  # /usr/bin and /bin show the programs in the PATH of the program that looks.
+  services.envfs.enable = true;
 }

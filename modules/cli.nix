@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     # Basics
     git vifm rsync rclone calc wget
+    openssl xdg-utils
     wl-clipboard   # Wayland clipboard (Neovim needs it)
 
     # Archives
@@ -19,6 +20,7 @@
 
     # Hardware, network and binaries
     pciutils nmap upx
+    wpa_supplicant   # wpa_cli, wpa_passphrase; NetworkManager has its own copy
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
   ];
