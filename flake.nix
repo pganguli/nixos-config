@@ -10,14 +10,17 @@
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Claude Code CLI: tracks upstream releases faster than nixpkgs
+    claude-code-nix.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, claude-code-nix, ... }@inputs: {
     nixosConfigurations.lenowo = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/lenowo
         home-manager.nixosModules.home-manager
+        { nixpkgs.overlays = [ claude-code-nix.overlays.default ]; }
       ];
     };
   };
