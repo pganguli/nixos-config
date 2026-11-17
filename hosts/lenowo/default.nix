@@ -17,6 +17,7 @@
     ../../modules/security.nix
     ../../modules/home.nix
     ../../modules/matlab.nix
+    ../../modules/network.nix
   ];
 
   # Boot
