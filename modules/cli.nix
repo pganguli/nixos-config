@@ -20,5 +20,6 @@
     # Hardware, network and binaries
     pciutils nmap upx
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
+    tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
   ];
 }
