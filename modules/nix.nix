@@ -18,5 +18,24 @@
 
   # Lets scripts find programs at fixed paths such as /usr/bin/openssl or /bin/bash.
   # /usr/bin and /bin show the programs in the PATH of the program that looks.
+  #
+  # Needed by the UNC eduroam enrollment script (SecureW2 JoinNow .run file):
+  # it looks for python (with dbus), openssl, xdg-open and wpa_supplicant only
+  # in /bin, /usr/bin and /usr/sbin. Run it as your user: sh SecureW2_JoinNow.run
+  #
+  # After enrollment, eduroam fails with "no secrets were provided": NixOS runs
+  # wpa_supplicant in a sandbox (user wpa_supplicant, no /home), so it can't
+  # read the key the script puts in ~/.joinnow. Copy it to /etc and repoint:
+  #   set conn "eduroam"   # nmcli -f NAME,TYPE connection show
+  #   set key (nmcli -g 802-1x.private-key connection show "$conn")
+  #   set pw  (sudo nmcli -s -g 802-1x.private-key-password connection show "$conn")
+  #   sudo install -d -m 750 -o root -g wpa_supplicant /etc/eduroam
+  #   sudo install -m 640 -o root -g wpa_supplicant $key /etc/eduroam/
+  #   sudo nmcli connection modify "$conn" \
+  #     802-1x.client-cert /etc/eduroam/(basename $key) \
+  #     802-1x.private-key /etc/eduroam/(basename $key) \
+  #     802-1x.private-key-password "$pw"
+  #   rm -rf ~/.joinnow
+  # Repeat after each renewal (running the script again resets the paths).
   services.envfs.enable = true;
 }
