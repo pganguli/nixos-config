@@ -17,6 +17,9 @@
     };
   };
 
+  # Thunderbolt/USB4: approve new devices (docks, drives) from Plasma
+  services.hardware.bolt.enable = true;
+
   # Lenovo conservation mode: stop charging at about 80%
   systemd.tmpfiles.rules = [
     "w /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode - - - - 1"
