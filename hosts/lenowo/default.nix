@@ -14,6 +14,7 @@
     ../../modules/storage.nix
     ../../modules/swap.nix
     ../../modules/power.nix
+    ../../modules/security.nix
     ../../modules/home.nix
     ../../modules/matlab.nix
   ];

@@ -1,0 +1,9 @@
+Host kitsune
+  AddressFamily inet
+  HostName=kitsune.prateekganguli.com
+  User=ubuntu
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  RequestTTY yes
+  RemoteCommand tmux new -A -s ssh_ubuntu
+  Compression=yes

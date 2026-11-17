@@ -69,10 +69,12 @@
         unstage = "reset HEAD --";
       };
       commit = {
-        gpgsign = false;   # turn on in the security phase, after the SSH key is on this laptop
+        gpgsign = true;    # sign with the SSH key (user.signingkey), through ssh-agent
         verbose = true;
       };
+      tag.gpgsign = true;
       gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "/home/pganguli/.ssh/allowed_signers";   # to verify signatures
       push = {
         default = "simple";
         autoSetupRemote = true;
@@ -166,6 +168,35 @@
         { key = "Return"; mods = "Shift"; chars = builtins.fromJSON ''"\u001b\r"''; }
       ];
     };
+  };
+
+  # ---------- SSH ----------
+  # Client config from the old dotfiles: ~/.ssh/config includes ~/.ssh/config.d/*
+  home.file.".ssh/config".source = ./files/ssh/config;
+  home.file.".ssh/config.d" = {
+    source = ./files/ssh/config.d;
+    recursive = true;
+  };
+
+  # Load the SSH key into ssh-agent after login. ksshaskpass reads the
+  # passphrase from KWallet; the first time, it asks and offers to remember it.
+  systemd.user.services.ssh-add-keys = {
+    Unit = {
+      Description = "Add SSH keys to ssh-agent";
+      After = [ "graphical-session.target" "ssh-agent.service" ];
+      Requires = [ "ssh-agent.service" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      Environment = [
+        "SSH_AUTH_SOCK=%t/ssh-agent"
+        "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass"
+        "SSH_ASKPASS_REQUIRE=force"
+      ];
+      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/ssh_ed25519";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   # ---------- Files from the old dotfiles ----------

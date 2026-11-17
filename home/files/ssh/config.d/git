@@ -1,0 +1,3 @@
+Host github.com gitlab.com salsa.debian.org es-git.cs.uni-tuebingen.de
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519

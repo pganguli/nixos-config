@@ -1,0 +1,59 @@
+Host gpupc1.cs.unc.edu
+  HostName=gpupc1.cs.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  RequestTTY yes
+  RemoteCommand tmux new -A -s ssh_pganguli
+  Compression=yes
+
+Host gpupc1-ts.cs.unc.edu
+  HostName=100.115.102.102
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  RequestTTY yes
+  RemoteCommand tmux new -A -s ssh_pganguli
+  Compression=yes
+
+Host gpupc1-ts-nrc.cs.unc.edu
+  HostName=100.115.102.102
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=yes
+
+Host dax.cs.unc.edu
+  HostName=dax.cs.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=yes
+
+Host longleaf.unc.edu
+  HostName=longleaf.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=yes
+
+Host gpu.cs.unc.edu
+  HostName=gpu.cs.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=yes
+
+Host classroom.cs.unc.edu
+  HostName=classroom.cs.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=no
+
+Host burnsville.cs.unc.edu
+  HostName=burnsville.cs.unc.edu
+  User=pganguli
+  PreferredAuthentications=publickey
+  IdentityFile=~/.ssh/ssh_ed25519
+  Compression=no
