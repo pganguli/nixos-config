@@ -17,11 +17,10 @@
 
   environment.systemPackages = with pkgs; [
     zed-editor   # the command is "zeditor"; Alacritty comes from Home Manager
-    thunderbird
+    thunderbird   # email, and IRC chat
     zathura feh mpv
     inkscape dia veusz xournalpp
     qbittorrent guvcview gparted
-    kdePackages.konversation   # IRC
     signal-desktop
     vesktop   # Discord client
     spotify
