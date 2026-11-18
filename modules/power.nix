@@ -1,4 +1,7 @@
 { pkgs, ... }: {
+  # Power diagnostics (run with sudo)
+  environment.systemPackages = [ pkgs.powertop pkgs.linuxPackages.turbostat ];
+
   # Battery levels and the action at critical battery
   services.upower = {
     enable = true;

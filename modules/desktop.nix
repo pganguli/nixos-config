@@ -23,6 +23,21 @@
     konsole
   ];
 
+  # ksystemstats' GPU plugin runs "nvidia-smi dmon" forever, which keeps the
+  # NVIDIA GPU out of runtime suspend (~5-10 W). Remove the plugin; the
+  # System Monitor then has no NVIDIA/GPU sensors.
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (kfinal: kprev: {
+        ksystemstats = kprev.ksystemstats.overrideAttrs (old: {
+          postInstall = (old.postInstall or "") + ''
+            rm $out/lib/qt-6/plugins/ksystemstats/ksystemstats_plugin_gpu.so
+          '';
+        });
+      });
+    })
+  ];
+
   # Printing
   services.printing.enable = true;
 
