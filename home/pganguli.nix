@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   # Do not change
   home.stateVersion = "26.05";
 
@@ -147,6 +147,16 @@
     enable = true;
     nix-direnv.enable = true;
   };
+
+  # Plasma's default terminal (used by "Terminal=true" apps such as nvim and
+  # vifm in the app picker). kdeglobals is a file Plasma rewrites, so set the
+  # one key instead of managing the whole file.
+  home.activation.plasmaTerminal = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file kdeglobals \
+      --group General --key TerminalApplication alacritty
+    run ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file kdeglobals \
+      --group General --key TerminalService Alacritty.desktop
+  '';
 
   # ---------- Alacritty ----------
   programs.alacritty = {
