@@ -38,6 +38,14 @@
     })
   ];
 
+  # Font rendering (the settings from Plasma's Fonts page, which wrote
+  # ~/.config/fontconfig/fonts.conf)
+  fonts.fontconfig = {
+    antialias = true;
+    subpixel.rgba = "vbgr";
+    hinting = { enable = true; style = "slight"; };
+  };
+
   # Printing
   services.printing.enable = true;
 

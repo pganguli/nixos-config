@@ -5,6 +5,12 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";   # use the same nixpkgs as the system
     };
+    # Declarative KDE Plasma settings (shortcuts, KWin, input, power) for Home Manager
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     # MATLAB: an FHS environment for the MathWorks installer and MATLAB
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
