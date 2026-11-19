@@ -65,6 +65,9 @@ in {
     # Julia (Nix manages the version)
     julia-bin
 
+    # UPPAAL: modeling and verification of real-time systems (timed automata)
+    uppaal
+
     # Static site generator
     hugo
 
