@@ -179,6 +179,16 @@
     uris = [ "qemu:///system" ];
   };
 
+  # pass: the store is a private git repo, cloned by hand on a new machine:
+  #   git clone git@github.com:pganguli/password-store.git ~/.password-store
+  # (entries are encrypted to the GPG key in its .gpg-id; gpg-agent and the Qt
+  # pinentry are set up in modules/system/security.nix). PassFF's native host
+  # is in modules/desktop/desktop.nix.
+  programs.password-store = {
+    enable = true;
+    settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+  };
+
   # ---------- SSH ----------
   # Client config from the old dotfiles: ~/.ssh/config includes ~/.ssh/config.d/*
   home.file.".ssh/config".source = ./files/ssh/config;

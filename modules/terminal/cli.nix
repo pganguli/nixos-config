@@ -18,9 +18,6 @@
     poppler-utils   # pdfseparate, pdfunite, pdftotext, ...
     pandoc yt-dlp
 
-    # Passwords (gpg-agent and pinentry are set up in modules/system/security.nix)
-    pass
-
     # Hardware, network and binaries
     pciutils nmap upx
     wpa_supplicant   # wpa_cli, wpa_passphrase; NetworkManager has its own copy
