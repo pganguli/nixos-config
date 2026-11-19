@@ -334,6 +334,8 @@ in {
           krohnkiteEnabled = true;
           slideEnabled = false;
           frozenappEnabled = false;
+          # Resizes windows that collapse to a sliver (see the script)
+          rescue-tiny-windowsEnabled = true;
         };
 
         Script-krohnkite = {
@@ -357,6 +359,11 @@ in {
       };
     };
   };
+
+  # KWin script: a window that has collapsed to a few pixels (seen with
+  # Thunderbird's setup windows) is resized and centered when it gets focus,
+  # for example from the task list.
+  xdg.dataFile."kwin/scripts/rescue-tiny-windows".source = ./files/kwin/rescue-tiny-windows;
 
   # Monitors: scale, rotation, position and the layouts for lid open/closed.
   # KWin rewrites this file whenever the displays change, so it is copied as a

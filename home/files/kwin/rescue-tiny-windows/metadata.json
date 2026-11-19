@@ -1,0 +1,13 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Id": "rescue-tiny-windows",
+        "Name": "Rescue tiny and off-screen windows",
+        "Description": "Resize or move back onto a screen windows that collapsed to a sliver or were flung off-screen",
+        "Authors": [{ "Name": "pganguli" }],
+        "License": "MIT",
+        "Version": "1.0"
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js"
+}
