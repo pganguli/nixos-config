@@ -65,8 +65,15 @@ in {
     # Julia (Nix manages the version)
     julia-bin
 
-    # UPPAAL: modeling and verification of real-time systems (timed automata)
-    uppaal
+    # UPPAAL: modeling and verification of real-time systems (timed automata).
+    # 5.1.0-beta6: nixpkgs only has 5.0.0 (2023). Drop the override once nixpkgs catches up.
+    (uppaal.overrideAttrs (old: {
+      version = "5.1.0-beta6";
+      src = fetchzip {
+        url = "https://download.uppaal.org/uppaal-5.1/uppaal-5.1.0/uppaal-5.1.0-beta6-linux64.zip";
+        hash = "sha256-v+ENLv6WniH2rY09y27XzneThjMYJ9gck2Kwa+M0j9A=";
+      };
+    }))
 
     # Static site generator
     hugo
