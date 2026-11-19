@@ -6,6 +6,7 @@
     ./system/users.nix
     ./system/locale.nix
     ./system/security.nix
+    ./system/tailscale.nix
     ./system/storage.nix
     ./system/swap.nix
     ./system/power.nix
