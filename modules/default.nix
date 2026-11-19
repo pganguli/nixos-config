@@ -7,6 +7,7 @@
     ./system/locale.nix
     ./system/security.nix
     ./system/tailscale.nix
+    ./system/dns.nix
     ./system/storage.nix
     ./system/swap.nix
     ./system/power.nix
