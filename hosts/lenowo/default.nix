@@ -16,7 +16,12 @@
 
   # Network
   networking.hostName = "lenowo";
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    # VPN: Cisco AnyConnect and compatible servers (Plasma's network applet gets
+    # an "OpenConnect" option when adding a VPN connection)
+    plugins = [ pkgs.networkmanager-openconnect ];
+  };
 
   # Fixed regulatory domain: otherwise cfg80211 flips between WORLD and the
   # AP's country IE, and 6 GHz association (blocked under WORLD) fails with
