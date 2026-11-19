@@ -53,7 +53,7 @@ in {
     # i3: hsetroot -solid "#000000" (the screen locker is black too)
     workspace = {
       wallpaperPlainColor = "0,0,0";
-      colorScheme = "BreezeLight";
+      colorScheme = "BreezeDark";
       widgetStyle = "Breeze";
       splashScreen = { engine = "none"; theme = "None"; };   # no splash screen
     };
