@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  imports = [ ./plasma.nix ./plasma-panel.nix ./plasma-apps.nix ./mime.nix ];
+  imports = [ ./plasma.nix ./plasma-panel.nix ./plasma-apps.nix ./mime.nix ./zed.nix ];
 
   # Do not change
   home.stateVersion = "26.05";
@@ -210,16 +210,31 @@
   };
 
   # ---------- Files from the old dotfiles ----------
-  # tmux (fish as default shell comes from /etc/tmux.conf)
-  xdg.configFile."tmux/tmux.conf".source = ./files/tmux.conf;
+  programs.tmux = {
+    enable = true;
+    shell = "${pkgs.fish}/bin/fish";   # tmux starts fish directly
+    sensibleOnTop = false;             # tmux.conf already sets what it needs
+    extraConfig = builtins.readFile ./files/tmux.conf;
+  };
 
-  # vifm: link each file, so vifm can still write vifminfo.json in the folder
-  xdg.configFile."vifm" = {
-    source = ./files/vifm;
+  # vifm: only the scripts are linked, so vifm can still write vifminfo.json
+  programs.vifm = {
+    enable = true;
+    extraConfig = builtins.readFile ./files/vifm/vifmrc;
+  };
+  xdg.configFile."vifm/scripts" = {
+    source = ./files/vifm/scripts;
     recursive = true;
   };
 
-  # Neovim: a writable link to the repo, so vim.pack can write nvim-pack-lock.json
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;   # sets EDITOR=nvim
+    viAlias = true;         # "vi" opens nvim
+    vimAlias = true;        # "vim" opens nvim
+    sideloadInitLua = true; # keep Home Manager from writing init.lua into the linked config dir
+  };
+  # Neovim config: a writable link to the repo, so vim.pack can write nvim-pack-lock.json
   xdg.configFile."nvim".source =
     config.lib.file.mkOutOfStoreSymlink "/home/pganguli/.config/nixos/home/files/nvim";
 
@@ -229,17 +244,25 @@
     recursive = true;
   };
 
-  xdg.configFile."mpv/mpv.conf".text = ''
-    hwdec
-    save-position-on-quit
-  '';
+  programs.mpv = {
+    enable = true;
+    config = {
+      hwdec = "yes";
+      save-position-on-quit = "yes";
+    };
+  };
 
-  xdg.configFile."zathura/zathurarc".text = ''
-    set incremental-search
-    set selection-clipboard "clipboard"
-    set synctex true
-    set synctex-editor-command "zeditor %{input}:%{line}"
-  '';
+  programs.zathura = {
+    enable = true;
+    options = {
+      incremental-search = true;
+      selection-clipboard = "clipboard";
+      synctex = true;
+      synctex-editor-command = "zeditor %{input}:%{line}";
+    };
+  };
+
+  programs.claude-code.enable = true;   # the command is "claude"; Nix updates it, not its own updater
 
   xdg.configFile."gdb/gdbinit".text = ''
     set history filename ~/.config/gdb/.gdb_history

@@ -10,13 +10,6 @@ let
     ];
   };
 in {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;   # sets EDITOR=nvim
-    viAlias = true;         # "vi" opens nvim
-    vimAlias = true;        # "vim" opens nvim
-  };
-
   programs.java.enable = true;   # also sets JAVA_HOME
 
   # rust-analyzer needs the source of the Rust standard library
@@ -60,9 +53,6 @@ in {
 
     # Static site generator
     hugo
-
-    # Claude Code CLI (the command is "claude"; Nix updates it, not its own updater)
-    claude-code
 
     # Neovim: tree-sitter CLI (builds the parsers)
     tree-sitter

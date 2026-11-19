@@ -16,9 +16,8 @@
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    zed-editor   # the command is "zeditor"; Alacritty comes from Home Manager
     thunderbird   # email, and IRC chat
-    zathura feh mpv
+    feh
     inkscape dia veusz xournalpp
     qbittorrent guvcview gparted
     signal-desktop

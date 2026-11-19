@@ -3,7 +3,7 @@
 
   environment.systemPackages = with pkgs; [
     # Basics
-    git vifm rsync rclone calc wget
+    rsync rclone calc wget
     openssl xdg-utils
     wl-clipboard   # Wayland clipboard (Neovim needs it)
 
