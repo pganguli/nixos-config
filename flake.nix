@@ -18,6 +18,10 @@
     };
     # Claude Code CLI: tracks upstream releases faster than nixpkgs
     claude-code-nix.url = "github:sadjow/claude-code-nix";
+    # ESP-IDF (nixpkgs has none): dev shells, used with "nix develop esp-dev#esp32s3-idf".
+    # No "follows": it is built against its own nixpkgs (25.11), and the shells are
+    # not part of the system, so they do not need to match this one.
+    nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
   };
 
   outputs = { nixpkgs, home-manager, claude-code-nix, ... }@inputs: {

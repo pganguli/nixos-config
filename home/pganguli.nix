@@ -100,6 +100,14 @@
     };
   };
 
+  # GitHub CLI. Run "gh auth login" once. git keeps using SSH keys (see the
+  # url.insteadOf entries above), so gh must not take over the credential helper.
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = false;
+    settings.git_protocol = "ssh";
+  };
+
   # ---------- Fish ----------
   programs.fish = {
     enable = true;

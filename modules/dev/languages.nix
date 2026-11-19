@@ -44,6 +44,7 @@ in {
 
     # Android: adb and fastboot (the package ships the udev rules for device access)
     android-tools
+    scrcpy   # mirror and control an Android phone over adb
 
     # Arduino
     arduino-cli arduino-language-server

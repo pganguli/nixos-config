@@ -1,4 +1,7 @@
-{ ... }: {
+{ inputs, ... }: {
+  # "nix develop esp-dev#esp32s3-idf" uses the version locked in flake.lock
+  nix.registry.esp-dev.flake = inputs.nixpkgs-esp-dev;
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "root" "@wheel" ];

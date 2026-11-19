@@ -26,6 +26,8 @@
     texliveMedium   # smaller than texliveFull
     texlab          # LaTeX language server
     libreoffice-qt6-fresh
+    # Chromium (not Google Chrome, not ungoogled). Native Wayland when available.
+    (chromium.override { commandLineArgs = [ "--ozone-platform-hint=auto" ]; })
     zotero   # reference manager
   ];
 }
