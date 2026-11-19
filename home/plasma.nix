@@ -234,6 +234,7 @@ in {
       };
       "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";   # xfce: task manager
       "services/org.kde.plasma.emojier.desktop"._launch = "Meta+.";
+      "services/org.kde.dolphin.desktop"._launch = [ ];   # Meta+E is the split layout; xfce had no key either
       "services/systemsettings.desktop"._launch = [ ];
     };
 
