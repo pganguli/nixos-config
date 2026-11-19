@@ -3,11 +3,25 @@
 # modules/desktop/gui.nix.
 #
 # Not declared: the library (~/Zotero), the sync password (in the profile's
-# logins.json), pane and sidebar layout, and the Better BibTeX extension
-# itself (installed by hand into the profile; it updates itself).
-{ lib, ... }:
+# logins.json), and pane and sidebar layout.
+{ lib, pkgs, ... }:
 let
+  profile = ".zotero/zotero/ppkwhpgo.default";
+
+  # Better BibTeX. This pinned copy is only put in place when the profile has
+  # none (a new profile or machine); Better BibTeX then updates itself, so a
+  # newer version in the profile is never replaced. Bump this when you like.
+  betterBibtex = pkgs.fetchurl {
+    url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v9.0.77/zotero-better-bibtex-9.0.77.xpi";
+    hash = "sha256-pfHSuvj/QshXYbej2PZ5n/wwbwgugCTVuDzoDoWSvQs=";
+  };
+
   prefs = {
+    # Zotero keeps Firefox's default of disabling add-ons that are found in the
+    # profile and not yet registered. 0 lets the Better BibTeX copy above load
+    # in a new profile without asking.
+    "extensions.autoDisableScopes" = 0;
+
     "extensions.zotero.dataDir" = "/home/pganguli/Zotero";
     "extensions.zotero.useDataDir" = true;
     "extensions.zotero.sync.server.username" = "prateek-ganguli";
@@ -25,5 +39,12 @@ let
   userJs = lib.concatStringsSep "\n"
     (lib.mapAttrsToList (k: v: "user_pref(${builtins.toJSON k}, ${builtins.toJSON v});") prefs) + "\n";
 in {
-  home.file.".zotero/zotero/ppkwhpgo.default/user.js".text = userJs;
+  home.file."${profile}/user.js".text = userJs;
+
+  home.activation.zoteroBetterBibtex = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    xpi="$HOME/${profile}/extensions/better-bibtex@iris-advies.com.xpi"
+    if [ ! -e "$xpi" ]; then
+      run install -D -m 644 ${betterBibtex} "$xpi"
+    fi
+  '';
 }
