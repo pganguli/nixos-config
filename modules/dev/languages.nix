@@ -42,6 +42,9 @@ in {
     # Embedded: Nordic nrfutil and Zephyr's west
     nrfutil python3Packages.west
 
+    # Android: adb and fastboot (the package ships the udev rules for device access)
+    android-tools
+
     # Arduino
     arduino-cli arduino-language-server
 
