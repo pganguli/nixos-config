@@ -56,7 +56,6 @@ in {
       lookAndFeel = "org.kde.breezedark.desktop";
       colorScheme = "BreezeDark";
       widgetStyle = "Breeze";
-      splashScreen = { engine = "none"; theme = "None"; };   # no splash screen
     };
     kscreenlocker = {
       autoLock = true;
@@ -265,6 +264,10 @@ in {
 
     # ---------- Files ----------
     configFile = {
+      # No splash screen. Written here and not with workspace.splashScreen,
+      # because plasma-manager warns about that option next to lookAndFeel.
+      ksplashrc.KSplash = { Engine = "none"; Theme = "None"; };
+
       # Plasma's default terminal (used by "Terminal=true" apps such as nvim
       # and vifm in the app picker)
       kdeglobals = {
