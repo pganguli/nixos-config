@@ -69,5 +69,6 @@ in {
     taplo
     marksman
     nil                            # Nix (Zed's Nix extension uses it)
+    nixd                           # Nix (also supported by Zed's Nix extension)
   ];
 }
