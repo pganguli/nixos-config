@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  imports = [ ./plasma.nix ./plasma-panel.nix ./plasma-apps.nix ./mime.nix ./zed.nix ./vesktop.nix ./firefox.nix ./thunderbird.nix ];
+  imports = [ ./plasma.nix ./plasma-panel.nix ./plasma-apps.nix ./mime.nix ./zed.nix ./vesktop.nix ./firefox.nix ./thunderbird.nix ./zotero.nix ];
 
   # Do not change
   home.stateVersion = "26.05";
