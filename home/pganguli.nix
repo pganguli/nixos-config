@@ -192,8 +192,11 @@
   # (entries are encrypted to the GPG key in its .gpg-id; gpg-agent and the Qt
   # pinentry are set up in modules/system/security.nix). PassFF's native host
   # is in modules/desktop/desktop.nix.
+  # Extensions: "pass otp" (one-time codes) and "pass audit" (weak, reused and
+  # leaked passwords).
   programs.password-store = {
     enable = true;
+    package = pkgs.pass.withExtensions (exts: [ exts.pass-otp exts.pass-audit ]);
     settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
   };
 
