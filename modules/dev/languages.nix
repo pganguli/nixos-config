@@ -67,7 +67,8 @@ in {
 
     # UPPAAL: modeling and verification of real-time systems (timed automata).
     # 5.1.0-beta6: nixpkgs only has 5.0.0 (2023). Drop the override once nixpkgs catches up.
-    (uppaal.overrideAttrs (old: {
+    # Beta6 needs Java 21 (the package's "jdk17" argument is just the JDK it wraps).
+    ((uppaal.override { jdk17 = jdk21; }).overrideAttrs (old: {
       version = "5.1.0-beta6";
       src = fetchzip {
         url = "https://download.uppaal.org/uppaal-5.1/uppaal-5.1.0/uppaal-5.1.0-beta6-linux64.zip";
