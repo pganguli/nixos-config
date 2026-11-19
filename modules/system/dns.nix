@@ -38,4 +38,11 @@
       MulticastDNS = "no";
     };
   };
+
+  # NetworkManager sets these per connection and would otherwise turn them
+  # back on for each Wi-Fi/Ethernet link (0 = off).
+  networking.networkmanager.settings.connection = {
+    "connection.llmnr" = 0;
+    "connection.mdns" = 0;
+  };
 }
