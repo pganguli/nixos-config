@@ -172,6 +172,13 @@
     };
   };
 
+  # virt-manager: connect to the system libvirt daemon on start (the window
+  # sizes and column choices it also stores in dconf are UI state, not listed)
+  dconf.settings."org/virt-manager/virt-manager/connections" = {
+    autoconnect = [ "qemu:///system" ];
+    uris = [ "qemu:///system" ];
+  };
+
   # ---------- SSH ----------
   # Client config from the old dotfiles: ~/.ssh/config includes ~/.ssh/config.d/*
   home.file.".ssh/config".source = ./files/ssh/config;
