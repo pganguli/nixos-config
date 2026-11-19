@@ -2,6 +2,12 @@
   # Power diagnostics (run with sudo)
   environment.systemPackages = [ pkgs.powertop pkgs.linuxPackages.turbostat ];
 
+  # Settings that powertop's Tunables tab reports as "Bad"
+  boot.kernel.sysctl = {
+    "kernel.nmi_watchdog" = 0;                # no periodic NMI wakeups (no hard-lockup detection)
+    "vm.dirty_writeback_centisecs" = 1500;    # write dirty pages every 15 s, not 5 s
+  };
+
   # Battery levels and the action at critical battery
   services.upower = {
     enable = true;
