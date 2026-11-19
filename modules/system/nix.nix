@@ -5,10 +5,16 @@
     auto-optimise-store = true;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+  # nh: "nh os switch" rebuilds this flake (no flags needed), with a build tree and a diff.
+  # It also does the weekly garbage collection (it replaces nix.gc).
+  programs.nh = {
+    enable = true;
+    flake = "/home/pganguli/.config/nixos";
+    clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep-since 14d";
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
