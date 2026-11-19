@@ -66,7 +66,7 @@
       theme = {
         mode = "system";
         light = "One Light";
-        dark = "One Dark";
+        dark = "Ayu Dark";
       };
     };
   };
