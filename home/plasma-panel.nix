@@ -46,7 +46,17 @@ in {
       screen = 0;
       widgets = [
         "org.kde.plasma.kickoff"
-        "org.kde.plasma.pager"   # shows the 10 workspaces, like i3bar
+        # Shows the 10 workspaces, like i3bar. These are the values the live
+        # panel already has (plasma-manager's defaults), pinned here.
+        {
+          name = "org.kde.plasma.pager";
+          config.General = {
+            currentDesktopSelected = "ShowDesktop";
+            displayedText = "Number";
+            showOnlyCurrentScreen = true;
+            showWindowIcons = true;
+          };
+        }
 
         # Tasks sorted by horizontal window position (value 6): the order of
         # the buttons follows the order of the tiles from left to right.
