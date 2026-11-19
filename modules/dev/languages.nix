@@ -1,4 +1,15 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let
+  cudaRoot = pkgs.symlinkJoin {
+    name = "cuda-nvcc-cudart";
+    paths = with pkgs.cudaPackages; [
+      cuda_nvcc
+      (lib.getDev cuda_cudart)
+      (lib.getLib cuda_cudart)
+      (lib.getStatic cuda_cudart)
+    ];
+  };
+in {
   programs.neovim = {
     enable = true;
     defaultEditor = true;   # sets EDITOR=nvim
@@ -12,16 +23,18 @@
   environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
 
   # Build systems (CMake, PyTorch, etc.) look for the toolkit here
-  environment.variables.CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
+  environment.variables.CUDA_PATH = "${cudaRoot}";
 
   environment.systemPackages = with pkgs; [
     # C and C++
     (lib.hiPrio gcc) clang   # gcc owns the "cc" command
     gnumake cmake gdb valgrind
 
-    # CUDA: nvcc, headers, libraries, cuda-gdb, nsight tools.
+    # CUDA: nvcc, cudart and headers only (the full cudatoolkit is several GB).
+    # Prebuilt PyTorch wheels bring their own CUDA libraries. For a build that
+    # needs more (cublas, cudnn...), add just that cudaPackages.* package.
     # The driver (libcuda) comes from hardware.nvidia in hosts/lenowo/laptop.nix.
-    cudaPackages.cudatoolkit
+    cudaRoot
 
     # Python
     (python3.withPackages (ps: with ps; [
