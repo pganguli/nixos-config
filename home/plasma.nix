@@ -122,8 +122,10 @@ in {
         {
           # i3: Mod+Shift+q closes the window (Mod+q is no longer used)
           "Window Close" = [ "Meta+Shift+Q" "Alt+F4" ];
-          # i3: Mod+f is fullscreen. Krohnkite's float toggle moves away from it.
-          "Window Fullscreen" = "Meta+F";
+          # Meta+F: the window fills the workspace (the panel stays).
+          # Meta+Shift+F: real fullscreen, i3's Mod+f.
+          "Window Maximize" = "Meta+F";
+          "Window Fullscreen" = "Meta+Shift+F";
 
           # Keys that Krohnkite uses now. Free them in KWin.
           "Switch Window Left" = [ ];
@@ -153,7 +155,6 @@ in {
           "MoveMouseToFocus" = [ ];
           "Walk Through Windows of Current Application" = [ ];
           "Walk Through Windows of Current Application (Reverse)" = [ ];
-          "Window Maximize" = [ ];
           "Window Minimize" = [ ];
           "Window Operations Menu" = [ ];
           "Window One Desktop Down" = [ ];
@@ -330,12 +331,12 @@ in {
 
         Script-krohnkite = {
           # The first layout in the order is the default on every workspace.
-          # i3: workspace_layout tabbed = every window is tiled but fills the
-          # workspace, one at a time (monocle). Meta+E switches the workspace
-          # to splits (binary tree), where dragging a window onto the left,
-          # right, top or bottom of another one splits there. Meta+W goes back.
-          monocleLayoutOrder = 1;
-          binaryTreeLayoutOrder = 2;
+          # Binary tree splits like i3: drag a window onto the left, right,
+          # top or bottom of another one (or onto a screen edge) to split
+          # there. Meta+W switches the workspace to tabbed (monocle: every
+          # window fills it, one at a time), Meta+E goes back to splits.
+          binaryTreeLayoutOrder = 1;
+          monocleLayoutOrder = 2;
           tileLayoutOrder = 3;
 
           # Zoom: all its windows float, but the two main ones tile
