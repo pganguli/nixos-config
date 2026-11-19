@@ -3,20 +3,7 @@
     ./hardware-configuration.nix
     ./disk.nix
     ./laptop.nix
-    ../../modules/nix.nix
-    ../../modules/users.nix
-    ../../modules/locale.nix
-    ../../modules/desktop.nix
-    ../../modules/shell.nix
-    ../../modules/cli.nix
-    ../../modules/gui.nix
-    ../../modules/dev.nix
-    ../../modules/storage.nix
-    ../../modules/swap.nix
-    ../../modules/power.nix
-    ../../modules/security.nix
-    ../../modules/home.nix
-    ../../modules/matlab.nix
+    ../../modules
   ];
 
   # Boot
@@ -24,6 +11,8 @@
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages;   # LTS kernel; the NVIDIA driver supports it
+  # Magic SysRq bitmask 176 = 16 (sync) + 32 (remount read-only) + 128 (reboot/power off)
+  boot.kernel.sysctl."kernel.sysrq" = 176;
 
   # Network
   networking.hostName = "lenowo";

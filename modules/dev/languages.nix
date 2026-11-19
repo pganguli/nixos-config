@@ -11,10 +11,17 @@
   # rust-analyzer needs the source of the Rust standard library
   environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
 
+  # Build systems (CMake, PyTorch, etc.) look for the toolkit here
+  environment.variables.CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
+
   environment.systemPackages = with pkgs; [
     # C and C++
     (lib.hiPrio gcc) clang   # gcc owns the "cc" command
     gnumake cmake gdb valgrind
+
+    # CUDA: nvcc, headers, libraries, cuda-gdb, nsight tools.
+    # The driver (libcuda) comes from hardware.nvidia in hosts/lenowo/laptop.nix.
+    cudaPackages.cudatoolkit
 
     # Python
     (python3.withPackages (ps: with ps; [
@@ -25,6 +32,12 @@
 
     # Rust stable (Nix manages the version)
     rustc cargo rustfmt clippy rust-analyzer
+
+    # Embedded: Nordic nrfutil and Zephyr's west
+    nrfutil python3Packages.west
+
+    # Arduino
+    arduino-cli arduino-language-server
 
     # Go
     go

@@ -12,6 +12,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.segger-jlink.acceptLicense = true;   # needed by nrfutil (accepts SEGGER's license terms)
 
   # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
