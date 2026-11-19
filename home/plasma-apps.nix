@@ -80,6 +80,7 @@ in {
 
     dolphinrc = {
       MainWindow.MenuBar = "Disabled";
+      General.ShowFullPath = true;   # full path in the location bar, not breadcrumbs only
       "KFileDialog Settings" = {
         "Places Icons Auto-resize" = false;
         "Places Icons Static Size" = 22;
