@@ -24,6 +24,7 @@
     vesktop   # Discord client
     spotify
     texliveMedium   # smaller than texliveFull
+    texlab          # LaTeX language server
     libreoffice-qt6-fresh
   ];
 }

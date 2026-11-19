@@ -3,7 +3,10 @@
   # which is then read-only: change settings here, not in Zed's UI.
   programs.zed-editor = {
     enable = true;
+    # Zed installs these on startup (they are not built by Nix)
+    extensions = [ "arduino" "html" "julia" "latex" "lua" "nix" ];
     userSettings = {
+      cli_default_open_behavior = "existing_window";
       show_edit_predictions = false;
       bottom_dock_layout = "contained";
       tabs = {
