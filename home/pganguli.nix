@@ -269,7 +269,16 @@
     };
   };
 
-  programs.claude-code.enable = true;   # the command is "claude"; Nix updates it, not its own updater
+  # Claude Code: the command is "claude"; Nix updates it, not its own updater.
+  # settings.json is generated from "settings" and read-only, so add new
+  # settings (permissions, env, hooks, ...) here, not with /config or by
+  # approving a permission prompt permanently.
+  programs.claude-code = {
+    enable = true;
+    settings = {
+      theme = "dark";
+    };
+  };
 
   xdg.configFile."gdb/gdbinit".text = ''
     set history filename ~/.config/gdb/.gdb_history
