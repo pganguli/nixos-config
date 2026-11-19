@@ -14,6 +14,14 @@
       "x-scheme-handler/mw-matlabconnector" = [ "mw-matlabconnector.desktop" ];
       "x-scheme-handler/mw-simulink" = [ "mw-simulink.desktop" ];
 
+      # Web: Firefox is the default browser (links from other programs open there)
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/about" = [ "firefox.desktop" ];
+      "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "application/xhtml+xml" = [ "firefox.desktop" ];
+
       "application/json" = [ "nvim.desktop" ];
       "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
       "application/x-docbook+xml" = [ "nvim.desktop" ];
