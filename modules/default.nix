@@ -25,5 +25,6 @@
     ./dev/languages.nix    # compilers, language servers, CUDA, Arduino, Nordic
     ./dev/matlab.nix
     ./dev/msp430.nix
+    ./dev/lab-instruments.nix
   ];
 }

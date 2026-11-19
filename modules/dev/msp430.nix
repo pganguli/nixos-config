@@ -63,5 +63,9 @@ in {
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2047", TAG+="uaccess"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0451", TAG+="uaccess"
+    # ModemManager (on, with NetworkManager) probes serial ports and can hold
+    # the probe's one open; keep it away from the eZ-FET and MSP-FET
+    ATTRS{idVendor}=="2047", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{MTP_NO_PROBE}="1"
+    ATTRS{idVendor}=="0451", ATTRS{idProduct}=="f432", ENV{ID_MM_DEVICE_IGNORE}="1"
   '';
 }
