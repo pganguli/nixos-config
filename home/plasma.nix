@@ -328,12 +328,13 @@ in {
         };
 
         Script-krohnkite = {
-          # The first layout in the order is the default. Binary tree is the
-          # one that splits like i3: drag a window onto the left, right, top or
-          # bottom part of another one (or onto a screen edge) to split there.
-          # Meta+W (tabbed), Meta+S, Meta+E and Meta+T switch the layout.
-          binaryTreeLayoutOrder = 1;
-          monocleLayoutOrder = 2;
+          # The first layout in the order is the default on every workspace.
+          # i3: workspace_layout tabbed = every window is tiled but fills the
+          # workspace, one at a time (monocle). Meta+E switches the workspace
+          # to splits (binary tree), where dragging a window onto the left,
+          # right, top or bottom of another one splits there. Meta+W goes back.
+          monocleLayoutOrder = 1;
+          binaryTreeLayoutOrder = 2;
           tileLayoutOrder = 3;
 
           # Zoom: all its windows float, but the two main ones tile

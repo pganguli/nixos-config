@@ -1,9 +1,19 @@
 # Default applications (from ~/.config/mimeapps.list, which Plasma's File
 # Associations settings write)
 { ... }: {
+  # MATLAB rewrites ~/.local/share/applications/mimeapps.list (the old
+  # location) on its own, which replaces the link. Overwrite it on every
+  # switch and do not back it up, or Home Manager fails on the old .bak.
+  xdg.dataFile."applications/mimeapps.list".force = true;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      # MATLAB's links (its .desktop files are in ~/.local/share/applications)
+      "x-scheme-handler/mw-matlab" = [ "mw-matlab.desktop" ];
+      "x-scheme-handler/mw-matlabconnector" = [ "mw-matlabconnector.desktop" ];
+      "x-scheme-handler/mw-simulink" = [ "mw-simulink.desktop" ];
+
       "application/json" = [ "nvim.desktop" ];
       "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
       "application/x-docbook+xml" = [ "nvim.desktop" ];
