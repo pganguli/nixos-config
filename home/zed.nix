@@ -4,6 +4,7 @@
   programs.zed-editor = {
     enable = true;
     userSettings = {
+      show_edit_predictions = false;
       bottom_dock_layout = "contained";
       tabs = {
         file_icons = true;
@@ -45,7 +46,10 @@
         show_sign_in = false;
       };
       toolbar.code_actions = true;
-      edit_predictions.allow_data_collection = "no";
+      edit_predictions = {
+        provider = "ollama";
+        allow_data_collection = "no";
+      };
       agent_servers.claude-acp.type = "registry";
       telemetry = {
         diagnostics = false;
