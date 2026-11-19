@@ -12,6 +12,9 @@ let
 in {
   programs.java.enable = true;   # also sets JAVA_HOME
 
+  # Debug probes (ST-Link, CMSIS-DAP, J-Link...) for the logged-in user, without root
+  services.udev.packages = [ pkgs.openocd pkgs.segger-jlink ];
+
   # rust-analyzer needs the source of the Rust standard library
   environment.variables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
 
@@ -41,6 +44,10 @@ in {
 
     # Embedded: Nordic nrfutil and Zephyr's west
     nrfutil python3Packages.west
+
+    # Debug probes: OpenOCD, and SEGGER J-Link (JLinkExe, JLinkGDBServer, ...;
+    # the license is accepted in modules/system/nix.nix)
+    openocd segger-jlink
 
     # Android: adb and fastboot (the package ships the udev rules for device access)
     android-tools

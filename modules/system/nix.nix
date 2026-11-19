@@ -22,6 +22,10 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.segger-jlink.acceptLicense = true;   # needed by nrfutil (accepts SEGGER's license terms)
+  # SEGGER's J-Link tools bundle Qt 4 (end of life), which nixpkgs marks as insecure. Only the
+  # GUI tools use it (JLinkConfig, J-Flash...), not JLinkExe or the GDB server. The name has
+  # the version in it: when segger-jlink updates, the build fails with the new name; change it here.
+  nixpkgs.config.permittedInsecurePackages = [ "segger-jlink-qt4-874" ];
 
   # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
