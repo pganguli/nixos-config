@@ -49,6 +49,9 @@ in {
     # the license is accepted in modules/system/nix.nix)
     openocd segger-jlink
 
+    # Serial console (/dev/ttyUSB*, /dev/ttyACM*; you are in the "dialout" group)
+    picocom
+
     # Android: adb and fastboot (the package ships the udev rules for device access)
     android-tools
     scrcpy   # mirror and control an Android phone over adb
