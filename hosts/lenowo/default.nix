@@ -27,6 +27,11 @@
   # /usr/libexec/openconnect/csd-post.sh, which NixOS doesn't have. The scripts
   # live in the store at a path that changes with every openconnect update, so
   # this symlink gives a stable one.
+  # csd-post.sh pulls the hostscan token out of the server's XML with
+  # xmlstarlet. Without it the token is empty, the login that follows has no
+  # "auth" node in the reply, and it only works on a retry.
+  environment.systemPackages = [ pkgs.xmlstarlet ];
+
   systemd.tmpfiles.rules = [
     "d /usr/libexec 0755 root root -"
     "L+ /usr/libexec/openconnect - - - - ${pkgs.openconnect}/libexec/openconnect"
