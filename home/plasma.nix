@@ -199,8 +199,11 @@ in {
           # Krohnkite defaults that clash with other keys
           "KrohnkiteSetMaster" = "Meta+Shift+Return";   # Meta+Return is the terminal
           "KrohnkiteDecrease" = [ ];                    # Meta+D is KRunner
-          "KrohnkiteFocusNext" = [ ];                   # Meta+. is the emoji picker
-          "KrohnkiteFocusPrev" = [ ];
+
+          # Next and previous window in tile order, not by direction. This works
+          # while one window is maximized or fullscreen, where Meta+arrows find nothing.
+          "KrohnkiteFocusNext" = "Meta+Alt+Right";
+          "KrohnkiteFocusPrev" = "Meta+Alt+Left";
         }
         # i3: Mod+<n> goes to workspace n, Mod+Shift+<n> moves the window there
         (lib.listToAttrs (map (n: lib.nameValuePair "Switch to Desktop ${toString n}" "Meta+${digit n}") workspaces))
