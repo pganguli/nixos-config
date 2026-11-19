@@ -180,6 +180,14 @@
     recursive = true;
   };
 
+  # Tell every program in the Plasma session where the agent is. NixOS sets
+  # SSH_AUTH_SOCK only when XDG_RUNTIME_DIR already exists while it builds the
+  # login environment, which is not the case for the SDDM Wayland session, so
+  # terminals, ssh and git did not see the agent and asked for the passphrase.
+  xdg.configFile."plasma-workspace/env/ssh-agent.sh".text = ''
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+  '';
+
   # Load the SSH key into ssh-agent after login. ksshaskpass reads the
   # passphrase from KWallet; the first time, it asks and offers to remember it.
   systemd.user.services.ssh-add-keys = {
