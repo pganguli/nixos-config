@@ -23,6 +23,15 @@
     plugins = [ pkgs.networkmanager-openconnect ];
   };
 
+  # The VPN profile's "CSD trojan binary" field defaults to
+  # /usr/libexec/openconnect/csd-post.sh, which NixOS doesn't have. The scripts
+  # live in the store at a path that changes with every openconnect update, so
+  # this symlink gives a stable one.
+  systemd.tmpfiles.rules = [
+    "d /usr/libexec 0755 root root -"
+    "L+ /usr/libexec/openconnect - - - - ${pkgs.openconnect}/libexec/openconnect"
+  ];
+
   # Fixed regulatory domain: otherwise cfg80211 flips between WORLD and the
   # AP's country IE, and 6 GHz association (blocked under WORLD) fails with
   # "Association request to the driver failed" + rtw89 "failed to wait RF IQK".
