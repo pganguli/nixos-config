@@ -68,5 +68,6 @@ in {
     yaml-language-server
     taplo
     marksman
+    nil                            # Nix (Zed's Nix extension uses it)
   ];
 }
