@@ -29,6 +29,13 @@
       DNSOverTLS = "yes";
       Domains = [ "~." ];
       FallbackDNS = [ ];   # empty: no built-in fallback servers
+
+      # No multicast name lookups. LLMNR (single-word names, mostly Windows)
+      # can be answered by anyone on the network; mDNS is what finds ".local"
+      # names, printers and Chromecasts, and nothing here uses it (Avahi is
+      # not enabled).
+      LLMNR = "no";
+      MulticastDNS = "no";
     };
   };
 }
