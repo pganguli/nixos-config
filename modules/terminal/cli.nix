@@ -9,6 +9,7 @@
 
     # Archives
     zip unzip _7zz   # _7zz is 7-Zip (7z, rar, and more)
+    mount-zip archivemount   # vifm mounts zips and tarballs with these
 
     # Search and files
     ripgrep fd fclones   # fzf comes from Home Manager

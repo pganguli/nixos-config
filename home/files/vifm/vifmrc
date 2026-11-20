@@ -244,7 +244,7 @@ command! cmp : if expand('%%c') == expand('%%f')
 " %SOURCE_FILE and %DESTINATION_DIR are filled in at runtime.
 "
 " Example:
-"   :filetype *.zip,*.[jwe]ar FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR
+"   :filetype *.zip,*.[jwe]ar FUSE_MOUNT|mount-zip %SOURCE_FILE %DESTINATION_DIR
 "
 " :filetype patterns FUSE_MOUNT2|mount_cmd %PARAM %DESTINATION_DIR
 "
@@ -417,11 +417,11 @@ fileviewer {*.torrent},<application/x-bittorrent>
          \ dumptorrent -v %c,
          \ transmission-show %c
 
-" FuseZipMount
+" MountZip
 filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg},
         \<application/zip,application/java-archive>
-       \ {Mount with fuse-zip}
-       \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+       \ {Mount with mount-zip}
+       \ FUSE_MOUNT|mount-zip %SOURCE_FILE %DESTINATION_DIR,
        \ {View contents}
        \ unzip -l %f | less,
        \ {Extract here}
