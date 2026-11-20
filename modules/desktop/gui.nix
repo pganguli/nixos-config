@@ -12,11 +12,26 @@
   # Zoom, with screen sharing through the Plasma portal
   programs.zoom-us.enable = true;
 
+  # Email, and IRC chat. Add-ons are installed in the profile on first start;
+  # the user can disable them, and their settings stay in the profile.
+  programs.thunderbird = {
+    enable = true;
+    policies.ExtensionSettings =
+      let
+        atn = slug: {
+          installation_mode = "normal_installed";
+          install_url = "https://addons.thunderbird.net/thunderbird/downloads/latest/${slug}/latest.xpi";
+        };
+      in {
+        "gconversation@xulforum.org" = atn "gmail-conversation-view";                    # Thunderbird Conversations
+        "ImportExportToolsNG@cleidigh.kokkini.net" = atn "importexporttools-ng";
+      };
+  };
+
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    thunderbird   # email, and IRC chat
     feh
     inkscape dia veusz xournalpp
     qbittorrent guvcview gparted

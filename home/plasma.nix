@@ -245,7 +245,8 @@ in {
     # i3: Print = full screen, Shift+Print = region
     spectacle.shortcuts = {
       captureEntireDesktop = "Print";
-      captureRectangularRegion = "Shift+Print";
+      # Meta+Shift+S is what the PrtSc key sends when fn lock is on
+      captureRectangularRegion = [ "Shift+Print" "Meta+Shift+S" ];
       recordScreen = "Meta+Print";
       captureActiveWindow = [ ];
       captureCurrentMonitor = [ ];

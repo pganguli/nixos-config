@@ -16,6 +16,12 @@ let
     "mail.pane_config.dynamic" = 0;
     "mail.uidensity" = 0;
     "mail.threadpane.cardsview.rowcount" = 2;
+    "mail.threadpane.listview" = 1;           # table view instead of cards
+    "mailnews.default_sort_order" = 1;        # ascending
+    "browser.theme.toolbar-theme" = 0;        # dark
+    "browser.theme.content-theme" = 0;        # dark
+    "mail.shell.checkDefaultClient" = false;  # don't ask to be the default mail client
+    "extensions.importexporttoolsng.export.filename_pattern" = "%d-%s-%k";
     "mailnews.start_page.enabled" = false;
     "messenger.options.messagesStyle.theme" = "simple";    # chat
     "messenger.options.messagesStyle.variant" = "Dark";
