@@ -103,7 +103,7 @@ in {
           name = "org.kde.plasma.digitalclock";
           config.Appearance = {
             dateFormat = "custom";
-            customDateFormat = "ddd d-MMM-yy | ";   # KDE stored this as "|\s", a space
+            customDateFormat = "ddd MMM-d-yyyy | ";   # KDE stored this as "|\s", a space
             dateDisplayFormat = "BesideTime";
             showWeekNumbers = true;
             use24hFormat = 2;
