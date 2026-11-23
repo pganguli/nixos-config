@@ -16,6 +16,13 @@
     TERMINAL = "alacritty";
     MANWIDTH = "80";
     GOPATH = "$HOME/.go";
+
+    # Python for programs installed from PyPI (wheels): uv's own builds, which
+    # run through nix-ld (modules/system/nix.nix). Nix's Python can't find the
+    # shared libraries that wheels expect. Plain "python3" stays Nix's.
+    # Needs: uv python install 3.12
+    UV_PYTHON_PREFERENCE = "only-managed";
+    PIPX_DEFAULT_PYTHON = "$HOME/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu/bin/python3.12";
   };
 
   # ---------- Git ----------

@@ -30,11 +30,14 @@
   # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
   # Libraries for prebuilt Qt/PySide6 wheels, such as the Joulescope UI
-  # (uv venv, then: uv pip install joulescope_ui). Setting this list replaces
-  # nix-ld's defaults, so the common ones (C++ runtime, zlib) are repeated here.
+  # (pipx install --python $(uv python find --managed-python) joulescope_ui;
+  # the interpreter must be uv's, since Nix's Python does not go through nix-ld).
+  # These add to nix-ld's defaults (zlib, zstd, bzip2, systemd, ...).
   programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc.lib zlib libGL libxkbcommon fontconfig freetype dbus glib wayland
+    libGL libxkbcommon fontconfig freetype dbus glib wayland
     libx11 libxcb libxcb-cursor libxcb-image libxcb-keysyms libxcb-render-util libxcb-wm
+    expat brotli krb5 nss nspr alsa-lib libpulseaudio pcsclite libdrm libgbm
+    libxext libxfixes libxrandr libxtst libxkbfile libxdamage libxcomposite libxcb-util
   ];
 
   # Lets scripts find programs at fixed paths such as /usr/bin/openssl or /bin/bash.
