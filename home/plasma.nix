@@ -101,7 +101,7 @@ in {
         powerProfile = "performance";
         powerButtonAction = "showLogoutScreen";
         whenLaptopLidClosed = "lockScreen";
-        whenSleepingEnter = "standbyThenHibernate";   # modules/power.nix: hibernate after 2 h
+        whenSleepingEnter = "standbyThenHibernate";   # modules/system/power.nix: hibernate after 2 h
         autoSuspend.action = "nothing";
         turnOffDisplay.idleTimeout = 300;
       };

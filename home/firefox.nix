@@ -1,9 +1,29 @@
-# Firefox profile. The package and the policies (extensions) come from the
-# NixOS module in modules/desktop/desktop.nix; this only manages the profile.
-{ ... }: {
+# Firefox: the package, its extensions (policies) and the profile.
+{ pkgs, ... }: {
   programs.firefox = {
     enable = true;
-    package = null;   # installed system-wide by programs.firefox in desktop.nix
+    package = pkgs.firefox;
+    nativeMessagingHosts = [ pkgs.passff-host ];   # lets PassFF talk to "pass"
+
+    # Installed in the profile on first start. The user can disable them, and
+    # their own settings stay in the profile (uBlock Origin filters, LeechBlock
+    # blocks, ...), which are not declared here.
+    policies.ExtensionSettings =
+      let
+        amo = slug: {
+          installation_mode = "normal_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
+        };
+      in {
+        "uBlock0@raymondhill.net" = amo "ublock-origin";
+        "sponsorBlocker@ajay.app" = amo "sponsorblock";
+        "myallychou@gmail.com" = amo "youtube-recommended-videos";   # Unhook
+        "leechblockng@proginosko.com" = amo "leechblock-ng";
+        "passff@invicem.pro" = amo "passff";                        # password-store (pass)
+        "@testpilot-containers" = amo "multi-account-containers";
+        "{c607c8df-14a7-4f28-894f-29e8722976af}" = amo "temporary-containers";
+      };
+
     profiles.default = {
       id = 0;
       name = "default";

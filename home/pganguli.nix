@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
   imports = [ ./plasma.nix ./plasma-panel.nix ./plasma-apps.nix ./mime.nix ./zed.nix ./vesktop.nix ./firefox.nix ./thunderbird.nix ./zotero.nix ];
 
   # Do not change
@@ -219,7 +219,7 @@
   #   git clone git@github.com:pganguli/password-store.git ~/.password-store
   # (entries are encrypted to the GPG key in its .gpg-id; gpg-agent and the Qt
   # pinentry are set up in modules/system/security.nix). PassFF's native host
-  # is in modules/desktop/desktop.nix.
+  # is in home/firefox.nix.
   # Extensions: "pass otp" (one-time codes) and "pass audit" (weak, reused and
   # leaked passwords).
   programs.password-store = {

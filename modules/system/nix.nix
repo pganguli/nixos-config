@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   # "nix develop esp-dev#esp32s3-idf" uses the version locked in flake.lock
   nix.registry.esp-dev.flake = inputs.nixpkgs-esp-dev;
 
@@ -29,6 +29,13 @@
 
   # Lets downloaded binaries run (uv Python, Zed extensions and language servers)
   programs.nix-ld.enable = true;
+  # Libraries for prebuilt Qt/PySide6 wheels, such as the Joulescope UI
+  # (uv venv, then: uv pip install joulescope_ui). Setting this list replaces
+  # nix-ld's defaults, so the common ones (C++ runtime, zlib) are repeated here.
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib zlib libGL libxkbcommon fontconfig freetype dbus glib wayland
+    libx11 libxcb libxcb-cursor libxcb-image libxcb-keysyms libxcb-render-util libxcb-wm
+  ];
 
   # Lets scripts find programs at fixed paths such as /usr/bin/openssl or /bin/bash.
   # /usr/bin and /bin show the programs in the PATH of the program that looks.

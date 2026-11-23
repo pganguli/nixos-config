@@ -21,7 +21,6 @@
 
     # Hardware, network and binaries
     pciutils nmap upx
-    iwd   # iwctl, iwmon; NetworkManager drives the iwd daemon
     iw   # nl80211 tool: link info, monitor interfaces, power save
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
