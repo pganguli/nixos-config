@@ -187,6 +187,34 @@
     uris = [ "qemu:///system" ];
   };
 
+  # IBus (engine installed in modules/system/locale.nix): the settings made in
+  # ibus-setup and the Typing Booster preferences window. The "version" key
+  # that IBus writes itself is not listed.
+  dconf.settings = {
+    "desktop/ibus/general" = {
+      engines-order = [ "xkb:us::eng" "typing-booster" ];
+      preload-engines = [ "xkb:us::eng" "typing-booster" ];
+      use-system-keyboard-layout = true;
+    };
+    "desktop/ibus/general/hotkey".triggers = [ "<Super>space" ];
+    "desktop/ibus/panel/emoji".has-partial-match = true;
+    "org/freedesktop/ibus/engine/typing-booster" = {
+      addspaceoncommit = true;
+      aichatenable = false;
+      autocapitalize = true;
+      autoselectcandidate = 2;
+      dictionary = "en_US";
+      disableinterminals = true;
+      ibuskeymap = "us";
+      inlinecompletion = 1;
+      inputmethod = "NoIME";
+      mincharcomplete = 2;
+      showfinalform = true;
+      tabenable = true;
+      wordpredictions = true;
+    };
+  };
+
   # pass: the store is a private git repo, cloned by hand on a new machine:
   #   git clone git@github.com:pganguli/password-store.git ~/.password-store
   # (entries are encrypted to the GPG key in its .gpg-id; gpg-agent and the Qt
