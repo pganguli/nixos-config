@@ -45,8 +45,8 @@
   boot.extraModprobeConfig = "options cfg80211 ieee80211_regdom=US";
 
   # No 6 GHz. Measured on 2026-11-23: iwd kept roaming from the 5 GHz BSS to the
-  # same AP's 6 GHz one (it ranks higher), where rx fell to 6 Mbit/s and traffic
-  # stopped for ~3 s, then back to 5 GHz, over and over. 0.0 disables the band.
+  # same AP's 6 GHz one (it ranks higher), where rx fell to 6 Mbit/s and pings got
+  # no replies for ~7 s (5 s on 6 GHz, then ~3 s disconnected), then back to 5 GHz, over and over. 0.0 disables the band.
   # Remove this line to try 6 GHz again (e.g. after a kernel update for rtw89).
   networking.wireless.iwd.settings.Rank.BandModifier6GHz = 0.0;
 
