@@ -59,13 +59,16 @@ in {
     msp430-gcc
     mspdebug
   ];
-  # Debug probes (LaunchPad eZ-FET, MSP-FET) for the logged-in user, without root
-  services.udev.extraRules = ''
+  # Debug probes (LaunchPad eZ-FET, MSP-FET) for the logged-in user, without root.
+  # A 70-*.rules file in a package, not services.udev.extraRules (99-local.rules):
+  # "uaccess" is only acted on in 73-seat-late.rules, and ModemManager reads
+  # ID_MM_DEVICE_IGNORE in 80-mm-candidate.rules, both before 99.
+  services.udev.packages = [ (pkgs.writeTextDir "lib/udev/rules.d/70-msp430.rules" ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2047", TAG+="uaccess"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0451", TAG+="uaccess"
     # ModemManager (on, with NetworkManager) probes serial ports and can hold
     # the probe's one open; keep it away from the eZ-FET and MSP-FET
     ATTRS{idVendor}=="2047", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{MTP_NO_PROBE}="1"
     ATTRS{idVendor}=="0451", ATTRS{idProduct}=="f432", ENV{ID_MM_DEVICE_IGNORE}="1"
-  '';
+  '') ];
 }
