@@ -8,6 +8,7 @@
     ./system/security.nix
     ./system/tailscale.nix
     ./system/dns.nix
+    ./system/eduroam.nix   # iwd + eduroam: the eduroam-iwd command
     ./system/storage.nix
     ./system/swap.nix
     ./system/power.nix

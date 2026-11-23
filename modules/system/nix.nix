@@ -37,22 +37,10 @@
   # it looks for python (with dbus), openssl, xdg-open and wpa_supplicant only
   # in /bin, /usr/bin and /usr/sbin. Run it as your user: sh SecureW2_JoinNow.run
   #
-  # After enrollment, eduroam fails with "no secrets were provided": NixOS runs
-  # wpa_supplicant in a sandbox (user wpa_supplicant, no /home), so it can't
-  # read the key the script puts in ~/.joinnow. Copy it to /etc and repoint:
-  #   set conn "eduroam"   # nmcli -f NAME,TYPE connection show
-  #   set key (nmcli -g 802-1x.private-key connection show "$conn")   # the .p12
-  #   set pw  (sudo nmcli -s -g 802-1x.private-key-password connection show "$conn")
-  #   sudo install -d -m 750 -o root -g wpa_supplicant /etc/eduroam
-  #   sudo install -m 640 -o root -g wpa_supplicant $key /etc/eduroam/
-  #   sudo nmcli connection modify "$conn" \
-  #     802-1x.client-cert /etc/eduroam/(basename $key) \
-  #     802-1x.private-key /etc/eduroam/(basename $key) \
-  #     802-1x.private-key-password "$pw"
-  #   rm -rf ~/.joinnow
-  # Only the .p12 is needed: it is a PKCS#12 bundle (key + client cert + chain),
-  # so the separate .crt is not copied, and client-cert and private-key both
-  # point at the .p12. Set all three in ONE nmcli call, as above.
-  # Repeat after each renewal (running the script again resets the paths).
+  # After enrollment, run "sudo eduroam-iwd" (modules/system/eduroam.nix): iwd,
+  # the Wi-Fi backend (hosts/lenowo), can't read the .p12 that the script leaves in
+  # the NetworkManager profile, and the command converts it. Do the same after
+  # each renewal. Check with: journalctl -u iwd -b  (look for "eapSuccess";
+  # "Error loading client private key" means a bad key file or password).
   services.envfs.enable = true;
 }

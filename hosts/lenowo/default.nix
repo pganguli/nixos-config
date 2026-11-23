@@ -18,6 +18,7 @@
   networking.hostName = "lenowo";
   networking.networkmanager = {
     enable = true;
+    wifi.backend = "iwd";   # instead of wpa_supplicant
     # VPN: Cisco AnyConnect and compatible servers (Plasma's network applet gets
     # an "OpenConnect" option when adding a VPN connection)
     plugins = [ pkgs.networkmanager-openconnect ];
