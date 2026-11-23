@@ -22,7 +22,6 @@
     # Hardware, network and binaries
     pciutils nmap upx
     iwd   # iwctl, iwmon; NetworkManager drives the iwd daemon
-    wpa_supplicant   # only so the eduroam enrollment script finds it (see system/nix.nix); iwd does the Wi-Fi
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
     e2fsprogs   # chattr, lsattr (file flags such as immutable)

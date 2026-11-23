@@ -37,6 +37,10 @@
   # it looks for python (with dbus), openssl, xdg-open and wpa_supplicant only
   # in /bin, /usr/bin and /usr/sbin. Run it as your user: sh SecureW2_JoinNow.run
   #
+  # wpa_supplicant is no longer installed (iwd does the Wi-Fi). If the enrollment
+  # script then complains that it can't find it, add pkgs.wpa_supplicant back
+  # to environment.systemPackages; this was not tested.
+  #
   # After enrollment, run "sudo eduroam-iwd" (modules/system/eduroam.nix): iwd,
   # the Wi-Fi backend (hosts/lenowo), can't read the .p12 that the script leaves in
   # the NetworkManager profile, and the command converts it. Do the same after
