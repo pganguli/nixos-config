@@ -4,7 +4,7 @@
   programs.zed-editor = {
     enable = true;
     # Zed installs these on startup (they are not built by Nix)
-    extensions = [ "arduino" "html" "julia" "latex" "lua" "nix" "toml" ];
+    extensions = [ "arduino" "html" "julia" "latex" "lua" "nix" "toml" "csv" "git-firefly" "make" ];
     userSettings = {
       cli_default_open_behavior = "existing_window";
       show_edit_predictions = false;
