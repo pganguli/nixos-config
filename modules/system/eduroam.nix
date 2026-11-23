@@ -7,7 +7,7 @@ let
   # a .crt and a .p12. iwd can't read those, so this converts the .p12 to the PEM
   # files iwd can load and points the profile at them. It also sets UNC's root CA
   # (unc-root3.pem, SHA-256 CE:11:ED:C0:...:91:BD:21, from the SecureW2 enrollment)
-  # so the RADIUS server's certificate chain is checked.
+  # and the server's domain so the RADIUS server's certificate is checked.
   eduroam-iwd = pkgs.writeShellApplication {
     name = "eduroam-iwd";
     runtimeInputs = with pkgs; [ networkmanager openssl coreutils ];
@@ -71,15 +71,17 @@ let
       esac
 
       # 2. Server check: UNC's root CA (the server's chain is Root3 > Sub3 >
-      #    radius-network.net.unc.edu). No domain match: with
-      #    EAP-TLS-ServerDomainMask=radius-network.net.unc.edu iwd rejected the
-      #    server ("TLS: Tunnel has disconnected with alert: bad_certificate")
-      #    and accepted it without the line, probably because that name isn't a
-      #    subjectAltName of the server cert (not checked). So the mask is cleared.
+      #    radius-network.net.unc.edu) plus the server's domain. NetworkManager
+      #    writes domain-suffix-match into the iwd profile as "*.<value>", and in
+      #    iwd a leading "*" needs at least one label in front, so the exact name
+      #    (radius-network.net.unc.edu) became "*.radius-network.net.unc.edu",
+      #    which doesn't match the server (bad_certificate). The parent domain
+      #    gives "*.net.unc.edu", which does (checked 2026-11-23). iwd's match is
+      #    case-sensitive.
       install -m 644 ${./unc-root3.pem} "$dir/ca.pem"
       nmcli connection modify "$conn" \
         802-1x.ca-cert "$dir/ca.pem" \
-        802-1x.domain-suffix-match ""
+        802-1x.domain-suffix-match net.unc.edu
 
       # As root, "up" can fail with "Secrets were required, but not provided"
       # (no secret agent); the profile is saved either way, so don't stop here.
