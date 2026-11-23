@@ -10,6 +10,9 @@ let
     ];
   };
 in {
+  # nrfutil with a newer nrfutil-device than nixpkgs (see modules/dev/nrfutil/)
+  nixpkgs.overlays = [ (final: _prev: { nrfutil = final.callPackage ./nrfutil/package.nix { }; }) ];
+
   programs.java.enable = true;   # also sets JAVA_HOME
 
   # Debug probes (ST-Link, CMSIS-DAP, J-Link...) for the logged-in user, without root
