@@ -237,7 +237,7 @@ in {
         RunClipboard = [ ];
       };
       "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";   # xfce: task manager
-      "services/org.kde.plasma.emojier.desktop"._launch = "Meta+.";
+      "services/org.kde.plasma.emojier.desktop"._launch = [ ];   # Meta+. and Meta+; are IBus's emoji keys
       "services/org.kde.dolphin.desktop"._launch = [ ];   # Meta+E is the split layout; xfce had no key either
       "services/systemsettings.desktop"._launch = [ ];
     };
@@ -319,6 +319,9 @@ in {
       };
 
       kwinrc = {
+        # The IBus panel is KWin's Wayland input method (for ibus-typing-booster)
+        Wayland.InputMethod = "/run/current-system/sw/share/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop";
+
         # i3: floating_modifier Mod. Hold Meta and drag with the left button to
         # move a window (with the right button to resize), from anywhere in it.
         MouseBindings.CommandAllKey = "Meta";
