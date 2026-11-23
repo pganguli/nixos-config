@@ -50,14 +50,15 @@
   # Remove this line to try 6 GHz again (e.g. after a kernel update for rtw89).
   networking.wireless.iwd.settings.Rank.BandModifier6GHz = 0.0;
 
-  # The driver's idle RSSI flips between about -48 and -82 dBm on the same AP
-  # while link rates and ping stay normal (measured 2026-11-23), which kept
-  # crossing iwd's 5 GHz roam thresholds (-76 / -82), so iwd roamed to flaky
-  # APs and dropped the link. Thresholds below the -82/-83 readings stop that.
-  # Cost: iwd holds on to a really weak AP longer. Defaults: -76 and -82.
-  networking.wireless.iwd.settings.General = {
-    RoamThreshold5G = -88;
-    CriticalRoamThreshold5G = -90;
+  # Roaming onto AP 68:28:cf:c0:64:e2 kept failing (association timeouts, "failed
+  # to wait RF IQK", dropped links; 5 times between 14:30 and 17:18 on 2026-11-23).
+  # iwd blacklists an AP after a failed connection, but only for 60 s by default
+  # (then 30 s steps), and the AP is tried again soon after. Keep a failing AP
+  # out for an hour at first. Roaming among the other APs is unchanged.
+  # (Lowering the 5 GHz roam thresholds to -88/-90 dBm was tried first: no effect.)
+  networking.wireless.iwd.settings.Blacklist = {
+    InitialTimeout = 3600;
+    Multiplier = 3600;
   };
 
   # Do not change
