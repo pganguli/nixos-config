@@ -22,6 +22,10 @@
     # No "follows": it is built against its own nixpkgs (25.11), and the shells are
     # not part of the system, so they do not need to match this one.
     nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
+    # Sources for the bare-metal nRF54 build (Projects/nrf54-pwrbench): Nordic's MDK and CMSIS
+    # headers. Not flakes; modules/dev/languages.nix exports them as $NRFX and $CMSIS.
+    nrfx = { url = "github:NordicSemiconductor/nrfx"; flake = false; };
+    cmsis = { url = "github:ARM-software/CMSIS_6"; flake = false; };
   };
 
   outputs = { nixpkgs, home-manager, claude-code-nix, ... }@inputs: {

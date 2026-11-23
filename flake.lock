@@ -19,6 +19,22 @@
         "type": "github"
       }
     },
+    "cmsis": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795021074,
+        "narHash": "sha256-qTgAQFFIm2jwfglELOVkd/Nj3N62mhjIIZP0ePOqEpI=",
+        "owner": "ARM-software",
+        "repo": "CMSIS_6",
+        "rev": "272b2925397e6e7b7a10c1e0d96a7c90bf6743e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ARM-software",
+        "repo": "CMSIS_6",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -162,6 +178,22 @@
         "type": "github"
       }
     },
+    "nrfx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794318780,
+        "narHash": "sha256-6al57OjTjW0EUcFnAnDgjHo4pzQ2aUNLs612OkWf6Jg=",
+        "owner": "NordicSemiconductor",
+        "repo": "nrfx",
+        "rev": "5822caf07442042310103c391dd91cbcaaaa1beb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NordicSemiconductor",
+        "repo": "nrfx",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -188,10 +220,12 @@
     "root": {
       "inputs": {
         "claude-code-nix": "claude-code-nix",
+        "cmsis": "cmsis",
         "home-manager": "home-manager",
         "nix-matlab": "nix-matlab",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-esp-dev": "nixpkgs-esp-dev",
+        "nrfx": "nrfx",
         "plasma-manager": "plasma-manager"
       }
     },

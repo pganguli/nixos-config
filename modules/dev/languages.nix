@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 let
   cudaRoot = pkgs.symlinkJoin {
     name = "cuda-nvcc-cudart";
@@ -21,9 +21,15 @@ in {
   # Build systems (CMake, PyTorch, etc.) look for the toolkit here
   environment.variables.CUDA_PATH = "${cudaRoot}";
 
+  # nrf54-pwrbench's Makefile reads these (default: ../nrfx and ../cmsis)
+  environment.variables.NRFX = "${inputs.nrfx}";
+  environment.variables.CMSIS = "${inputs.cmsis}";
+
   environment.systemPackages = with pkgs; [
     # C and C++
     (lib.hiPrio gcc) clang   # gcc owns the "cc" command
+    lld llvm                 # lld, llvm-objcopy, llvm-size (bare-metal clang builds)
+    gcc-arm-embedded         # arm-none-eabi-gcc (make TOOLCHAIN=gcc)
     gnumake cmake gdb valgrind
 
     # CUDA: nvcc, cudart and headers only (the full cudatoolkit is several GB).
