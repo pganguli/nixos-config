@@ -43,7 +43,16 @@ in {
     rustc cargo rustfmt clippy rust-analyzer
 
     # Embedded: Nordic nrfutil and Zephyr's west
-    nrfutil python3Packages.west
+    # (nrfutil 8 downloads its subcommands at runtime; withExtensions pins them in Nix)
+    (nrfutil.withExtensions [
+      "nrfutil-device"
+      "nrfutil-sdk-manager"
+      "nrfutil-toolchain-manager"
+      "nrfutil-mcu-manager"
+      "nrfutil-nrf5sdk-tools"
+      "nrfutil-trace"
+    ])
+    python3Packages.west
 
     # Debug probes: OpenOCD, and SEGGER J-Link (JLinkExe, JLinkGDBServer, ...;
     # the license is accepted in modules/system/nix.nix)
