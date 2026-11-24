@@ -46,6 +46,11 @@
         "browser.warnOnQuitShortcut" = false;
         "media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
 
+        # No back/forward on a two-finger touchpad swipe
+        "browser.gesture.swipe.left" = "";
+        "browser.gesture.swipe.right" = "";
+        "widget.disable-swipe-tracker" = true;
+
         # No password, address or card saving, and no breach alerts
         "signon.rememberSignons" = false;
         "signon.firefoxRelay.feature" = "disabled";
