@@ -50,17 +50,6 @@
   # Remove this line to try 6 GHz again (e.g. after a kernel update for rtw89).
   networking.wireless.iwd.settings.Rank.BandModifier6GHz = 0.0;
 
-  # Roaming onto AP 68:28:cf:c0:64:e2 kept failing (association timeouts, "failed
-  # to wait RF IQK", dropped links; 5 times between 14:30 and 17:18 on 2026-11-23).
-  # iwd blacklists an AP after a failed connection, but only for 60 s by default
-  # (then 30 s steps), and the AP is tried again soon after. Keep a failing AP
-  # out for an hour at first. Roaming among the other APs is unchanged.
-  # (Lowering the 5 GHz roam thresholds to -88/-90 dBm was tried first: no effect.)
-  networking.wireless.iwd.settings.Blacklist = {
-    InitialTimeout = 3600;
-    Multiplier = 3600;
-  };
-
   # Do not change
   system.stateVersion = "26.05";
 }
