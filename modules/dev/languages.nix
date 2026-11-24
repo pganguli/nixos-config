@@ -80,8 +80,9 @@ in {
     # Go
     go
 
-    # Julia (Nix manages the version)
-    julia-bin
+    # Julia (Nix manages the version). 1.13 from nixos-unstable: nixos-26.05 stops at 1.12.
+    # Go back to plain julia-bin once the release has 1.13.
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.julia_113-bin
 
     # UPPAAL: modeling and verification of real-time systems (timed automata).
     # 5.1.0-beta6: nixpkgs only has 5.0.0 (2023). Drop the override once nixpkgs catches up.
