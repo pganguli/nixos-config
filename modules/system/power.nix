@@ -36,6 +36,27 @@
     '';
   };
 
+  # Restart WirePlumber after resuming from hibernation. The Bluetooth adapter
+  # re-initializes on resume, and WirePlumber can lose the race to re-register
+  # its A2DP endpoints, falling back to the legacy BlueZ API ("only SBC will be
+  # supported"). Headphones are then stuck on the mono headset profile (HFP).
+  systemd.services.restart-wireplumber-after-hibernate = {
+    description = "Restart WirePlumber after hibernation so Bluetooth A2DP works";
+    after = [ "hibernate.target" "suspend-then-hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [ "hibernate.target" "suspend-then-hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      uid=$(${pkgs.coreutils}/bin/id -u pganguli)
+      [ -S "/run/user/$uid/pipewire-0" ] || exit 0
+      # Wait (up to 20 s) for the Bluetooth adapter to power back on
+      for _ in $(${pkgs.coreutils}/bin/seq 20); do
+        ${pkgs.bluez}/bin/bluetoothctl show | ${pkgs.gnugrep}/bin/grep -q "Powered: yes" && break
+        ${pkgs.coreutils}/bin/sleep 1
+      done
+      ${pkgs.systemd}/bin/systemctl --user -M pganguli@ restart wireplumber.service
+    '';
+  };
+
   # Bluetooth (for Bluetooth headphones and the audio profile switch)
   hardware.bluetooth.enable = true;
 }
