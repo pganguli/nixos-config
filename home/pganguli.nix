@@ -235,6 +235,37 @@
     settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
   };
 
+  # Fish completion for pass. The extensions only ship bash completion, and
+  # fish loads a single completion file per command, so this file takes the
+  # place of pass's own: it sources that file, then adds "otp" and "audit".
+  xdg.configFile."fish/completions/pass.fish".text = ''
+    source ${config.programs.password-store.package}/share/fish/vendor_completions.d/pass.fish
+
+    # pass otp [code] [-c] pass-name
+    # pass otp insert|append [-e] [-f] [-s] [-i issuer] [-a account] [pass-name]
+    # pass otp uri [-c] [-q] pass-name
+    # pass otp validate uri
+    set -l otp_sub insert append uri validate
+    complete -c pass -f -n __fish_pass_needs_command -a otp -d 'Command: generate or manage OTP codes'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and test (count (commandline -opc)) -eq 2' -a "$otp_sub code"
+    complete -c pass -f -n '__fish_pass_uses_command otp; and not __fish_seen_subcommand_from validate' -a '(__fish_pass_print_entries)'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and not __fish_seen_subcommand_from insert append uri validate' -s c -l clip -d 'Copy code to clipboard'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from uri' -s c -l clip -d 'Copy URI to clipboard'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from uri' -s q -l qrcode -d 'Show URI as QR code'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from insert append' -s e -l echo -d 'Echo input'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from insert append' -s f -l force -d 'Overwrite without asking'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from insert append' -s s -l secret -d 'Prompt for secret, not URI'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from insert append' -s i -l issuer -r -d 'Issuer (with --secret)'
+    complete -c pass -f -n '__fish_pass_uses_command otp; and __fish_seen_subcommand_from insert append' -s a -l account -r -d 'Account (with --secret)'
+
+    # pass audit [-n name] [pass-names...]
+    complete -c pass -f -n __fish_pass_needs_command -a audit -d 'Command: audit passwords for weakness and leaks'
+    complete -c pass -f -n '__fish_pass_uses_command audit' -a '(__fish_pass_print_entries_and_dirs)'
+    complete -c pass -f -n '__fish_pass_uses_command audit' -s n -l name -r -d 'Only audit entries matching name'
+    complete -c pass -f -n '__fish_pass_uses_command audit' -s q -l quiet -d 'Be quiet'
+    complete -c pass -f -n '__fish_pass_uses_command audit' -s v -l verbose -d 'Be verbose'
+  '';
+
   # ---------- SSH ----------
   # Client config from the old dotfiles: ~/.ssh/config includes ~/.ssh/config.d/*
   home.file.".ssh/config".source = ./files/ssh/config;
