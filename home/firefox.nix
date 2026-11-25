@@ -1,9 +1,14 @@
 # Firefox: the package, its extensions (policies) and the profile.
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
-    nativeMessagingHosts = [ pkgs.passff-host ];   # lets PassFF talk to "pass"
+    # Lets PassFF talk to "pass". nixpkgs hard-codes plain pass (no
+    # extensions) into the host, so OTP failed; give it the pass with
+    # pass-otp from programs.password-store (home/pganguli.nix).
+    nativeMessagingHosts = [
+      (pkgs.passff-host.override { pass = config.programs.password-store.package; })
+    ];
 
     # Installed in the profile on first start. The user can disable them, and
     # their own settings stay in the profile (uBlock Origin filters, LeechBlock
