@@ -20,7 +20,9 @@ let
   #
   # Check it with:
   #   systemctl list-units 'tun2proxy@*'
-  #   journalctl -t tun2proxy-dispatch -u 'tun2proxy@*' -f
+  #   journalctl -b -t tun2proxy-dispatch    # what the dispatcher did
+  #   journalctl -f -u 'tun2proxy@*'         # the tunnel itself
+  # (not both flags in one journalctl: -t and -u together match nothing)
   socksPort = 8228;
 
   # NetworkManager profile names (nmcli -t -f NAME con show)
@@ -75,10 +77,10 @@ let
     case "$ACTION" in
       up|dhcp4-change)
         harden
-        if [ -z "$PHONE" ]; then
-          log "$CONNECTION_ID on $IFACE: no phone IP found, not starting tun2proxy"
-          exit 0
-        fi
+        # NetworkManager runs this twice when the USB tether comes up, and the
+        # first run has no phone address yet; the second one has it and starts
+        # the tunnel. So no address is normal here: skip without logging.
+        [ -n "$PHONE" ] || exit 0
         UNIT="tun2proxy@$PHONE.service"
         if ! systemctl is-active --quiet "$UNIT"; then
           # One tunnel at a time (both would want tun0): the newest connection wins
