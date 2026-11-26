@@ -68,6 +68,11 @@
         # remote download check)
         "browser.safebrowsing.malware.enabled" = false;
         "browser.safebrowsing.phishing.enabled" = false;
+
+        # No captive-portal or connectivity checks (requests to
+        # detectportal.firefox.com on startup and on network changes)
+        "network.captive-portal-service.enabled" = false;
+        "network.connectivity-service.enabled" = false;
       };
     };
   };
