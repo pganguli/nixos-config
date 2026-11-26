@@ -20,7 +20,7 @@
     pandoc yt-dlp
 
     # Hardware, network and binaries
-    pciutils nmap upx
+    pciutils nmap upx tun2proxy bind tcpdump
     iw   # nl80211 tool: link info, monitor interfaces, power save
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
