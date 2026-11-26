@@ -9,6 +9,7 @@
     ./system/tailscale.nix
     ./system/dns.nix
     ./system/eduroam.nix   # iwd + eduroam: the eduroam-iwd command
+    ./system/tetherfusenet.nix   # phone tethering: tun2proxy to TetherFuseNet's SOCKS5
     ./system/storage.nix
     ./system/swap.nix
     ./system/power.nix
