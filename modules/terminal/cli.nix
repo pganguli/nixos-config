@@ -21,6 +21,8 @@
 
     # Hardware, network and binaries
     pciutils nmap upx tun2proxy bind tcpdump
+    netcat-openbsd   # nc: nc -zv host port
+    tcping-rs   # tcping: ping over TCP (works through the SOCKS5 tunnel; ICMP does not)
     iw   # nl80211 tool: link info, monitor interfaces, power save
     ntfs3g   # NTFS tools: ntfsfix, ntfslabel, mkfs.ntfs, ...
     tbtools  # Thunderbolt/USB4 debugging tools: tblist, tbauth, tbadapters, ...
