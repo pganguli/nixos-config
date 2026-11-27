@@ -113,9 +113,16 @@ in
       StartLimitBurst = 10;
     };
     serviceConfig = {
+      # DNS stays with systemd-resolved (DNS over TLS, see dns.nix), whose
+      # encrypted lookups go through the tunnel like any other TCP. "direct"
+      # passes DNS packets through untouched (no fake 198.18.x.x addresses).
+      # --setup always mounts its own /etc/resolv.conf naming --dns-addr, so
+      # point that at resolved's stub; otherwise apps that read resolv.conf
+      # (browsers, Go programs) would skip resolved.
       ExecStart = "${pkgs.tun2proxy}/bin/tun2proxy-bin --setup"
         + " --proxy socks5://%i:${toString socksPort}"
-        + " --dns virtual"
+        + " --dns direct"
+        + " --dns-addr 127.0.0.53"
         + " --bypass %i/32";
       ExecStartPost = "-${tun0NoIpv6}";
       KillSignal = "SIGINT";     # like Ctrl-C: tun2proxy removes its routes
