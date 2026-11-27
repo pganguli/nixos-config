@@ -41,6 +41,30 @@ let
     done
   '';
 
+  # --setup always mounts its own resolv.conf naming the tunnel gateway
+  # (10.0.0.1) over the file /etc/resolv.conf points to. Undo that so apps
+  # that read resolv.conf use resolved's stub (127.0.0.53) like everything
+  # else. tun2proxy mounts it shortly after starting, so wait for it.
+  resolvConfRestore = pkgs.writeShellScript "tun2proxy-resolv-restore" ''
+    target="$(${pkgs.coreutils}/bin/readlink -f /etc/resolv.conf)"
+    for _ in $(seq 20); do
+      if ${pkgs.util-linux}/bin/findmnt -rn --mountpoint "$target" >/dev/null; then
+        ${pkgs.util-linux}/bin/umount "$target"
+        exit 0
+      fi
+      sleep 0.5
+    done
+  '';
+
+  # On exit tun2proxy unmounts its resolv.conf and fails (EINVAL) if the mount
+  # is gone, which marks the unit failed. Give it a mount to remove: the file
+  # bound onto itself, so removing it changes nothing.
+  resolvConfRemount = pkgs.writeShellScript "tun2proxy-resolv-remount" ''
+    target="$(${pkgs.coreutils}/bin/readlink -f /etc/resolv.conf)"
+    ${pkgs.util-linux}/bin/findmnt -rn --mountpoint "$target" >/dev/null \
+      || ${pkgs.util-linux}/bin/mount --bind "$target" "$target"
+  '';
+
   dispatch = pkgs.writeShellScript "tun2proxy-dispatch" ''
     export PATH=${lib.makeBinPath (with pkgs; [ coreutils iproute2 iw procps systemd util-linux ])}
 
@@ -116,15 +140,18 @@ in
       # DNS stays with systemd-resolved (DNS over TLS, see dns.nix), whose
       # encrypted lookups go through the tunnel like any other TCP. "direct"
       # passes DNS packets through untouched (no fake 198.18.x.x addresses).
-      # --setup always mounts its own /etc/resolv.conf naming --dns-addr, so
-      # point that at resolved's stub; otherwise apps that read resolv.conf
-      # (browsers, Go programs) would skip resolved.
+      # resolvConfRestore undoes --setup's resolv.conf (see above).
+      # --dns-addr is where DNS sent to the tunnel gateway is forwarded;
+      # 127.0.0.53 there means the phone's own loopback, so any stray plain
+      # DNS sent to 10.0.0.1 fails instead of leaving unencrypted.
       ExecStart = "${pkgs.tun2proxy}/bin/tun2proxy-bin --setup"
         + " --proxy socks5://%i:${toString socksPort}"
         + " --dns direct"
         + " --dns-addr 127.0.0.53"
         + " --bypass %i/32";
-      ExecStartPost = "-${tun0NoIpv6}";
+      ExecStartPost = [ "-${tun0NoIpv6}" "-${resolvConfRestore}" ];
+      # Runs before KillSignal is sent
+      ExecStop = "-${resolvConfRemount}";
       KillSignal = "SIGINT";     # like Ctrl-C: tun2proxy removes its routes
       TimeoutStopSec = 10;
       Restart = "on-failure";    # the phone's proxy may not be up yet at link-up
