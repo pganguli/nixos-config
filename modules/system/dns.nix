@@ -30,6 +30,13 @@
       Domains = [ "~." ];
       FallbackDNS = [ ];   # empty: no built-in fallback servers
 
+      # Keep answers for up to an hour past their TTL and serve them only when
+      # a fresh lookup fails (e.g. the tether's tunnel hiccups). resolved still
+      # asks upstream first, so normally nothing stale is returned. Side
+      # effect: the cache is no longer flushed when DNS servers change, so it
+      # survives the tether/tun0 going up and down.
+      StaleRetentionSec = 3600;
+
       # No multicast name lookups. LLMNR (single-word names, mostly Windows)
       # can be answered by anyone on the network; mDNS is what finds ".local"
       # names, printers and Chromecasts, and nothing here uses it (Avahi is
