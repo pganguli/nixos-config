@@ -6,6 +6,7 @@
     # Zed installs these on startup (they are not built by Nix)
     extensions = [ "arduino" "html" "julia" "latex" "lua" "nix" "toml" "csv" "git-firefly" "make" "log" ];
     userSettings = {
+      git.inline_blame.location = "status_bar";
       cli_default_open_behavior = "existing_window";
       show_edit_predictions = false;
       bottom_dock_layout = "contained";
