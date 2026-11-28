@@ -38,7 +38,7 @@
     signal-desktop
     vesktop   # Discord client
     spotify
-    texliveMedium   # smaller than texliveFull
+    texliveFull
     texlab          # LaTeX language server
     libreoffice-qt6-fresh
     # Chromium (not Google Chrome, not ungoogled). Native Wayland when available.
